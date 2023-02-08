@@ -1,9 +1,30 @@
 <div class="form">
   <h1>Account Login</h1>
   <p>Please login to continue</p>
-  <form action="#">
-    <input type="email" placeholder="Email" />
-    <input type="password" placeholder="Password" />
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+      [ngClass]="{ 'is-invalid': submitted && form['email'].errors }"
+    />
+    <span *ngIf="submitted && form['email'].errors" class="invalid-feedback">
+      <p>Please enter a valid email</p>
+    </span>
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
+    />
+    <span *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+      <p>Please enter a valid password</p>
+    </span>
+    <app-password-strength
+      [password]="form['password'].value"
+    ></app-password-strength>
+
     <button>Log In</button>
   </form>
 </div>
