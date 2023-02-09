@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-password-strength',
@@ -12,15 +12,18 @@ export class PasswordStrengthComponent implements OnChanges {
   constructor() {}
 
   calculateStrength() {
-    let strength = 10;
-    if (this.password.length >= 8) {
-      strength += 30;
+    let strength = 0;
+    if (this.password.length >= 4) {
+      strength += 25;
+    }
+    if (this.password.match(/\d+/)) {
+      strength += 25;
     }
     if (this.password.match(/[a-z]+/) && this.password.match(/[A-Z]+/)) {
-      strength += 30;
+      strength += 25;
     }
     if (this.password.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/)) {
-      strength += 30;
+      strength += 25;
     }
     this.strength = strength;
   }

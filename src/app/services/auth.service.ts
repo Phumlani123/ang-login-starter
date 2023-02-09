@@ -36,14 +36,13 @@ export class AuthService {
     return this.http.post<any>('api_url/login', { email, password }).pipe(
       map((res) => {
         if (res.data.token) {
-          console.log('response = ', res);
           this.setToken(res.data.token);
           this.token = res.data.token;
           let decoded = 'decoded token';
           this.authenticationState.next(true);
           res = decoded;
           return res;
-        } else res;
+        } else res = null;
       })
     );
   }
@@ -54,7 +53,6 @@ export class AuthService {
   }
 
   private handleSignInResponse(response: any) {
-    console.log('response = ', response);
     this.user = response;
     this.setToken(this.token);
     this.authenticationState.next(true);
